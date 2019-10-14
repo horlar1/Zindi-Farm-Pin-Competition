@@ -156,47 +156,6 @@ df_test = df[(length(train.id)+1):nrow(df),]
 
 
 
-ftrs = data.frame(
-  type = unlist(lapply(df[1:length(train.id),],class)),
-  n.unique = unlist(lapply(df[1:length(train.id),],function(x)length(unique(x)))),
-  f.missing = unlist(lapply(df[1:length(train.id),],function(x)mean(is.na(x)))),
-  spear.cor = unlist(lapply(df[1:length(train.id),],function(x){idx = !is.na(x);
-  if(is.factor(x)) x = as.numeric(x);
-  if(is.character(x)) x = as.numeric(as.factor(x));
-  if(is.integer(x)) x = as.numeric(x);
-  if(is.logical(x)) x = as.numeric(x);
-  cor(x[idx],y = label[idx], method = "spearman")
-  }))
-)
-
-ftrs$name = rownames(ftrs)
-ftrs =ftrs %>% drop_na()
-df = df[,names(df) %in% ftrs$name]
-
-
-
-
-#######
-## GEOCODE
-###
-# library(ggmap)
-# 
-# register_google(key = "AIzaSyCKfgdgnKXUFLDM6gGpRr_4rDWxphqFXmc")
-# 
-# dr$nas = NA
-# 
-# 
-# for (i in 1:nrow(d)) {
-#   
-#   input = c(d[i,1],d[i,2])
-#   locations = revgeocode(input)
-#   d[i,3] = locations
-# }
-# t = revgeocode(c(22.17,-28.98))
-# 
-# ### elevation
-# q = google_elevation(df_locations = a[1:1000,])
-# 
 
 
 #########
